@@ -6,7 +6,7 @@ const app = express();
 
 
 // api level middlewares
-app.use("/api/v1/webhook",express.raw({ type: "application/json" }),webhookRouter);
+app.use("/webhook",express.raw({ type: "application/json" }),webhookRouter);
 
 
 // app level middlewares
