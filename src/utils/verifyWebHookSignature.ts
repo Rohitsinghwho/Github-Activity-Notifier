@@ -7,6 +7,7 @@ export default function verifyWebHookSignature(
   secret: string,
 ): boolean {
   const hmac = crypto.createHmac("sha256", secret);
+  
   hmac.update(rawBody);
   const digest = "sha256=" + hmac.digest("hex");
   const sigBuffer = Buffer.from(signature);
