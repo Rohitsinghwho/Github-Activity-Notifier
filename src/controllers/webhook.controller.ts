@@ -12,10 +12,6 @@ export const handleWebhookEvent = (
       const eventType = req.headers["x-github-event"] as string;
       const signature = req.headers["x-hub-signature-256"] as string;
       const secret = process.env.WEBHOOK_SECRET as string;
-      console.log("Is Buffer:", Buffer.isBuffer(rawBody));
-     console.log("Body length:", rawBody?.length);
-     console.log("Secret:", process.env.WEBHOOK_SECRET);
-     console.log("Signature:", req.headers["x-hub-signature-256"]);
     if (!signature || !secret) {
       return res.status(400).json({ message: "Missing signature or secret" });
     }
