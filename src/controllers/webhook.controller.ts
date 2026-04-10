@@ -1,16 +1,21 @@
 import express from "express";
 import verifyWebHookSignature from "../utils/verifyWebHookSignature";
-
+import dotenv from "dotenv";
+dotenv.config();
 export const handleWebhookEvent = (
   req: express.Request,
   res: express.Response,
 ): any => {
   try {
-    const rawBody = req.body as Buffer;
-    const requestBody = JSON.parse(rawBody.toString());
-    const eventType = req.headers["x-github-event"] as string;
-    const signature = req.headers["x-hub-signature-256"] as string;
-    const secret = process.env.WEBHOOK_SECRET as string;
+      const rawBody = req.body as Buffer;
+      const requestBody = JSON.parse(rawBody.toString());
+      const eventType = req.headers["x-github-event"] as string;
+      const signature = req.headers["x-hub-signature-256"] as string;
+      const secret = process.env.WEBHOOK_SECRET as string;
+      console.log("Is Buffer:", Buffer.isBuffer(rawBody));
+     console.log("Body length:", rawBody?.length);
+     console.log("Secret:", process.env.WEBHOOK_SECRET);
+     console.log("Signature:", req.headers["x-hub-signature-256"]);
     if (!signature || !secret) {
       return res.status(400).json({ message: "Missing signature or secret" });
     }
@@ -33,7 +38,7 @@ export const handleWebhookEvent = (
         break;
       case "pull_request":
         console.log(
-          `Pull request ${requestBody.number}: "${requestBody.pull_request.title}" by ${requestBody.pull_request.title}`
+          `Pull request ${requestBody.number}: "${requestBody.pull_request.title}" by ${requestBody.pull_request.user.login}`,
         );
         break;
       default:
