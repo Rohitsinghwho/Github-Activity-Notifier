@@ -1,1 +1,12 @@
 @import "tailwindcss";
+
+@theme{
+    --color-EventCardBackground: #F1F3E0;
+    --color-EventCardTextHeading:#C44A3A;
+    --color-EventCardTextNumber:#D97A2B;
+    --color-EventCardTextSubheading:#546B41;
+    --color-PushEvent:#FE81D4;
+    --color-PullRequestEvent:#FE81D4;
+    --color-IssuesEvent:#79AE6F;
+    
+}
